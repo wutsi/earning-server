@@ -69,3 +69,6 @@ logging:
     console: "%d type=%level logger=%class{20} thread=%thread request_id=%X{request_id} client_id=%X{client_id} device_id=%X{device_id} :%m%n"
     file: "%d type=%level logger=%class{20} thread=%thread request_id=%X{request_id} client_id=%X{client_id} device_id=%X{device_id} :%m%n"
 
+wutsi:
+  cron:
+    monthly-compute: "0 10 3 3 * *"  # Every 3rd or the month at 3:10 AM
