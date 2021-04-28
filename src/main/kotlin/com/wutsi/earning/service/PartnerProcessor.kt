@@ -72,7 +72,7 @@ class PartnerProcessor(
         val site = findSite(user.siteId, sites)
         val wppAmount = siteAttributeAsLong(WPP_MONTHLY_AMOUNT, site)
         if (wppAmount <= 0) {
-            LOGGER.warn("siteId=${site.id} partnerId=${partner.id} - WPP-Amount not available")
+            LOGGER.warn("siteId=${site.id} - WPP-Amount not available")
             return null
         }
 
@@ -86,7 +86,6 @@ class PartnerProcessor(
             offset = 0
         ).kpis
         if (kpis.isEmpty()) {
-            LOGGER.warn("siteId=${site.id} partnerId=${partner.id} userId=${user.id} - WPP Read Ratio not avaialble")
             return null
         }
         val ratio = kpis[0].value.toDouble() / 100
@@ -95,11 +94,12 @@ class PartnerProcessor(
         val threshold = siteAttributeAsLong(WPP_THRESHOLD, site)
         val earning = wppAmount.toDouble() * ratio
         if (earning < threshold) {
-            LOGGER.warn("siteId=${site.id} partnerId=${partner.id} userId=${user.id} earning=$earning threshold=$threshold - Earning below thresold")
+            LOGGER.warn("userId=${user.id} earning=$earning threshold=$threshold - Earning below threshold")
             return null
         }
 
         // Save
+        LOGGER.warn("userId=${user.id} earning=$earning - Saving")
         return save(year, month, earning.toLong(), partner, site)
     }
 
