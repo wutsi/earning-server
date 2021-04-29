@@ -1,0 +1,2 @@
+- [Site Configuration](Configuration.md)
+- [API](https://wutsi.github.io/earning-server/api/)
