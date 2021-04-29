@@ -15,7 +15,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.4.4</version>
+    <version>2.4.5</version>
   </parent>
 
   <properties>
@@ -30,13 +30,13 @@
     <kotlin-mockito.version>2.2.0</kotlin-mockito.version>
     <jackson-module-kotlin.version>2.12.2</jackson-module-kotlin.version>
     <jackson-modules-java8.version>2.12.2</jackson-modules-java8.version>
-    <klint.version>0.40.0</klint.version>
+    <klint.version>0.41.0</klint.version>
     <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
     <hikari-cp.version>4.0.3</hikari-cp.version>
     <postgresql.version>42.2.19</postgresql.version>
     <flyway.version>7.7.0</flyway.version>
 
-    <wutsi-contract-sdk.version>1.0.0</wutsi-contract-sdk.version>
+    <wutsi-contract-sdk.version>1.1.0</wutsi-contract-sdk.version>
     <wutsi-partner-sdk.version>1.0.0</wutsi-partner-sdk.version>
     <wutsi-site-sdk.version>1.6.0</wutsi-site-sdk.version>
     <wutsi-stats-sdk.version>1.1.0</wutsi-stats-sdk.version>

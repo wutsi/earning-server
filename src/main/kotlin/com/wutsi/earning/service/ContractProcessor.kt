@@ -6,6 +6,7 @@ import com.wutsi.earning.dao.EarningRepository
 import com.wutsi.earning.entity.EarningEntity
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import javax.transaction.Transactional
 
 @Service
@@ -36,7 +37,7 @@ class ContractProcessor(
     }
 
     private fun doProcess(year: Int, month: Int): List<EarningEntity> {
-        val contracts = api.active().contracts
+        val contracts = api.active(LocalDate.of(year, month, 1)).contracts
         val earnings = mutableListOf<EarningEntity>()
         contracts.forEach {
             val earning = save(year, month, it)

@@ -1,5 +1,6 @@
 package com.wutsi.earning.service
 
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.contract.ContractApi
@@ -30,7 +31,7 @@ internal class ContractProcessorTest {
     fun process() {
         val c1 = createContract(100, 1, 50000, "XAF")
         val c2 = createContract(200, 2, 25000, "XAF")
-        doReturn(SearchContractResponse(listOf(c1, c2))).whenever(api).active()
+        doReturn(SearchContractResponse(listOf(c1, c2))).whenever(api).active(any())
 
         processor.process(2020, 10)
 
