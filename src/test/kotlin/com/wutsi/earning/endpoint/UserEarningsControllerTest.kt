@@ -1,26 +1,31 @@
 package com.wutsi.earning.endpoint
 
 import com.wutsi.earning.dto.SearchEarningResponse
+import com.wutsi.earning.dto.SecurityScope
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.jdbc.Sql
-import org.springframework.web.client.RestTemplate
+import org.springframework.web.client.HttpClientErrorException
 import java.time.LocalDate
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
+import kotlin.test.fail
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(value = ["/db/clean.sql", "/db/UserEarningsController.sql"])
-public class UserEarningsControllerTest {
+public class UserEarningsControllerTest : ControllerTestBase() {
     @LocalServerPort
     public val port: Int = 0
 
     @Test
-    public fun invoke() {
+    fun `invoke`() {
+        givenApiKey(SecurityScope.EARNING.scope)
+
         val url = "http://localhost:$port/v1/earnings/users/1?year=2020"
-        val response = RestTemplate().getForEntity(url, SearchEarningResponse::class.java)
+        val response = exchange(url, HttpMethod.GET, SearchEarningResponse::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
 
@@ -43,5 +48,20 @@ public class UserEarningsControllerTest {
         assertEquals("XAF", response.body.earnings[2].currency)
         assertNull(response.body.earnings[2].partnerId)
         assertEquals(100, response.body.earnings[2].contractId)
+    }
+
+    @Test
+    fun `invoke with no permission`() {
+        givenApiKey()
+
+        try {
+            val url = "http://localhost:$port/v1/earnings/users/1?year=2020"
+            exchange(url, HttpMethod.GET, SearchEarningResponse::class.java)
+            fail()
+        } catch (ex: HttpClientErrorException) {
+            assertEquals(HttpStatus.FORBIDDEN, ex.statusCode)
+        } catch (ex: Exception) {
+            fail()
+        }
     }
 }

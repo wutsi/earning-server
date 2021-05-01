@@ -3,7 +3,8 @@ package com.wutsi.earning.config
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.partner.PartnerApi
 import com.wutsi.partner.PartnerApiBuilder
-import feign.RequestInterceptor
+import com.wutsi.security.apikey.ApiKeyRequestInterceptor
+import com.wutsi.tracing.TracingRequestInterceptor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,7 +15,8 @@ import org.springframework.core.env.Profiles
 public class PartnerConfiguration(
     @Autowired private val env: Environment,
     @Autowired private val mapper: ObjectMapper,
-    @Autowired private val tracingRequestInterceptor: RequestInterceptor
+    @Autowired private val tracingRequestInterceptor: TracingRequestInterceptor,
+    @Autowired private val apiKeyRequestInterceptor: ApiKeyRequestInterceptor
 ) {
     @Bean
     fun partnerApi(): PartnerApi =
@@ -22,7 +24,7 @@ public class PartnerConfiguration(
             .build(
                 env = partnerEnvironment(),
                 mapper = mapper,
-                interceptors = listOf(tracingRequestInterceptor)
+                interceptors = listOf(tracingRequestInterceptor, apiKeyRequestInterceptor)
             )
 
     fun partnerEnvironment(): com.wutsi.partner.Environment =

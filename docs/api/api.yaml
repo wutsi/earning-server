@@ -33,6 +33,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchEarningResponse'
+      security:
+        - api_key:
+            - earning
       tags:
         - Earnings
   /v1/earnings/compute:
@@ -54,6 +57,9 @@ paths:
       responses:
         '200':
           description: Success
+      security:
+        - api_key:
+            - earning
       tags:
         - Earnings
   /v1/earnings/replay:
@@ -75,9 +81,17 @@ paths:
       responses:
         '200':
           description: Success
+      security:
+        - api_key:
+            - earning
       tags:
         - Earnings
 components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      in: header
+      name: Authorization
   schemas:
     SearchEarningResponse:
       type: object
