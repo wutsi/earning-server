@@ -2,14 +2,13 @@ package com.wutsi.earning.config
 
 import com.wutsi.security.apikey.ApiKeyAuthenticationProvider
 import com.wutsi.security.apikey.ApiKeyProvider
-import org.springframework.beans.factory.`annotation`.Autowired
-import org.springframework.beans.factory.`annotation`.Value
-import org.springframework.context.`annotation`.Configuration
-import org.springframework.security.config.`annotation`.authentication.builders.AuthenticationManagerBuilder
-import org.springframework.security.config.`annotation`.web.builders.HttpSecurity
-import org.springframework.security.config.`annotation`.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Configuration
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import javax.servlet.Filter
-import kotlin.String
 
 @Configuration
 public class SecurityConfiguration(
@@ -27,7 +26,9 @@ public class SecurityConfiguration(
                 org.springframework.security.config.http.SessionCreationPolicy.STATELESS
             )
             .and()
-            .authorizeRequests().anyRequest().authenticated()
+            .authorizeRequests()
+            .antMatchers("/actuator/**").permitAll()
+            .anyRequest().authenticated()
             .and()
             .addFilterBefore(
                 authenticationFilter(),
