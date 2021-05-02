@@ -81,5 +81,5 @@ wutsi:
 
 security:
   api-key:
-    id: ${API_KEY_ID:}
+    id: "0000000"
     header: "Authorization"
