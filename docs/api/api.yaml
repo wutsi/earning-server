@@ -59,7 +59,7 @@ paths:
           description: Success
       security:
         - api_key:
-            - earning
+            - earning.admin
       tags:
         - Earnings
   /v1/earnings/replay:
@@ -83,7 +83,7 @@ paths:
           description: Success
       security:
         - api_key:
-            - earning
+            - earning.admin
       tags:
         - Earnings
 components:

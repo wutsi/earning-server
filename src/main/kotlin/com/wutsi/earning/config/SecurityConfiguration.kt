@@ -2,13 +2,15 @@ package com.wutsi.earning.config
 
 import com.wutsi.security.apikey.ApiKeyAuthenticationProvider
 import com.wutsi.security.apikey.ApiKeyProvider
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
-import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.beans.factory.`annotation`.Autowired
+import org.springframework.beans.factory.`annotation`.Value
+import org.springframework.context.`annotation`.Configuration
+import org.springframework.security.config.`annotation`.authentication.builders.AuthenticationManagerBuilder
+import org.springframework.security.config.`annotation`.web.builders.HttpSecurity
+import org.springframework.security.config.`annotation`.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.web.util.matcher.RequestMatcher
 import javax.servlet.Filter
+import kotlin.String
 
 @Configuration
 public class SecurityConfiguration(
@@ -27,8 +29,8 @@ public class SecurityConfiguration(
             )
             .and()
             .authorizeRequests()
-            .antMatchers("/actuator/**").permitAll()
-            .anyRequest().authenticated()
+            .requestMatchers(SECURED_ENDPOINTS).authenticated()
+            .anyRequest().permitAll()
             .and()
             .addFilterBefore(
                 authenticationFilter(),
@@ -47,9 +49,18 @@ public class SecurityConfiguration(
         val filter = com.wutsi.security.apikey.ApiKeyAuthenticationFilter(
             headerName = apiKeyHeader,
             apiProvider = apiKeyProvider,
-            pattern = "/**"
+            requestMatcher = SECURED_ENDPOINTS
         )
         filter.setAuthenticationManager(authenticationManagerBean())
         return filter
+    }
+
+    public companion object {
+        public val SECURED_ENDPOINTS: RequestMatcher =
+            org.springframework.security.web.util.matcher.OrRequestMatcher(
+                org.springframework.security.web.util.matcher.AntPathRequestMatcher("/v1/earnings/users/*"),
+                org.springframework.security.web.util.matcher.AntPathRequestMatcher("/v1/earnings/compute"),
+                org.springframework.security.web.util.matcher.AntPathRequestMatcher("/v1/earnings/replay")
+            )
     }
 }

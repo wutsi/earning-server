@@ -13,7 +13,7 @@ public class ReplayController(
     private val `delegate`: ReplayDelegate
 ) {
     @GetMapping("/v1/earnings/replay")
-    @PreAuthorize(value = "hasAuthority('earning')")
+    @PreAuthorize(value = "hasAuthority('earning.admin')")
     public fun invoke(
         @RequestParam(name = "start-date", required = false)
         @DateTimeFormat(pattern = "yyyy-MM-dd") startDate: LocalDate,

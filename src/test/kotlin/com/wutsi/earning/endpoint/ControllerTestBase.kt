@@ -7,6 +7,7 @@ import com.wutsi.security.SecurityApi
 import com.wutsi.security.apikey.ApiKeyContext
 import com.wutsi.security.dto.ApiKey
 import com.wutsi.security.dto.GetApiKeyResponse
+import org.junit.jupiter.api.BeforeEach
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
@@ -22,15 +23,19 @@ open class ControllerTestBase {
     @MockBean
     private lateinit var context: ApiKeyContext
 
-    private val apiKeyId = UUID.randomUUID().toString()
+    @BeforeEach
+    open fun setUp() {
+        doReturn(null).whenever(context).id()
+    }
 
     protected fun givenApiKey(scope: String? = null): ApiKey {
+        val apiKeyId = UUID.randomUUID().toString()
         doReturn(apiKeyId).whenever(context).id()
 
         val apiKey = ApiKey(
             id = "api-key",
             name = "test",
-            scopes = if (scope == null) emptyList() else listOf(scope)
+            scopes = scope?.let { listOf(it) } ?: emptyList()
         )
         doReturn(GetApiKeyResponse(apiKey)).whenever(securityApi).get(any())
         return apiKey
@@ -38,7 +43,10 @@ open class ControllerTestBase {
 
     protected fun <T> exchange(url: String, method: HttpMethod, type: Class<T>): ResponseEntity<T> {
         val headers = HttpHeaders()
-        headers.put("Authorization", listOf(apiKeyId))
+        val apiKey = context.id()
+        if (apiKey != null)
+            headers.put("Authorization", listOf(apiKey))
+
         val request = HttpEntity("", headers)
         return RestTemplate().exchange(url, method, request, type)
     }

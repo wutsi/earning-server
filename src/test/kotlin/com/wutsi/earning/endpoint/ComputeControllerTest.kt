@@ -3,8 +3,6 @@ package com.wutsi.earning.endpoint
 import com.nhaarman.mockitokotlin2.verify
 import com.wutsi.earning.delegate.ComputeDelegate
 import com.wutsi.earning.dto.SearchEarningResponse
-import com.wutsi.earning.dto.SecurityScope
-import com.wutsi.security.dto.ApiKey
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
@@ -26,7 +24,7 @@ public class ComputeControllerTest : ControllerTestBase() {
 
     @Test
     public fun `invoke`() {
-        givenApiKey(SecurityScope.EARNING.scope)
+        givenApiKey("earning.admin")
 
         val url = "http://localhost:$port/v1/earnings/compute?year=2020&month=1"
         val response = exchange(url, HttpMethod.GET, SearchEarningResponse::class.java)
@@ -53,7 +51,7 @@ public class ComputeControllerTest : ControllerTestBase() {
 
     @Test
     fun `invoke with bad permission`() {
-        givenApiKey("xxx")
+        givenApiKey("earning")
 
         try {
             val url = "http://localhost:$port/v1/earnings/compute?year=2020&month=1"
@@ -66,9 +64,16 @@ public class ComputeControllerTest : ControllerTestBase() {
         }
     }
 
-    private fun createApiKey(scopes: List<String> = listOf(SecurityScope.EARNING.scope)) = ApiKey(
-        id = "api-key",
-        name = "test",
-        scopes = scopes
-    )
+    @Test
+    fun `invoke as anonymous`() {
+        try {
+            val url = "http://localhost:$port/v1/earnings/compute?year=2020&month=1"
+            exchange(url, HttpMethod.GET, Any::class.java)
+            fail()
+        } catch (ex: HttpClientErrorException) {
+            assertEquals(HttpStatus.FORBIDDEN, ex.statusCode)
+        } catch (ex: Exception) {
+            fail()
+        }
+    }
 }

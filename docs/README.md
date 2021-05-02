@@ -1,2 +1,3 @@
 - [Site Configuration](Configuration.md)
+- [API Security](Configuration.md)
 - [API](https://wutsi.github.io/earning-server/api/)

@@ -12,7 +12,7 @@ public class ComputeController(
     private val `delegate`: ComputeDelegate
 ) {
     @GetMapping("/v1/earnings/compute")
-    @PreAuthorize(value = "hasAuthority('earning')")
+    @PreAuthorize(value = "hasAuthority('earning.admin')")
     public fun invoke(
         @RequestParam(name = "year", required = false) year: Int,
         @RequestParam(name = "month", required = false) month: Int
