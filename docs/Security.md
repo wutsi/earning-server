@@ -2,8 +2,8 @@
 
 | Name | Description |
 |------|-------------|
-| `earning` | Use this scope for quering earnings information |
-| `earning.admin` | Use this scope to compute or replay earnings |
+| `earning-read` | Use this scope for quering earnings information |
+| `earning-manager` | Use this scope to compute or replay earnings |
 
 
 

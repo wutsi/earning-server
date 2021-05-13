@@ -1,7 +1,7 @@
 package com.wutsi.earning.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wutsi.security.apikey.ApiKeyRequestInterceptor
+import com.wutsi.platform.security.apikey.ApiKeyRequestInterceptor
 import com.wutsi.stats.StatsApi
 import com.wutsi.stats.StatsApiBuilder
 import com.wutsi.tracing.TracingRequestInterceptor

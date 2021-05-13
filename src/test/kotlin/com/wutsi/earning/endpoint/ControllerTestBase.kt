@@ -3,8 +3,8 @@ package com.wutsi.earning.endpoint
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
+import com.wutsi.platform.security.apikey.ApiKeyContext
 import com.wutsi.security.SecurityApi
-import com.wutsi.security.apikey.ApiKeyContext
 import com.wutsi.security.dto.ApiKey
 import com.wutsi.security.dto.GetApiKeyResponse
 import org.junit.jupiter.api.BeforeEach
@@ -28,7 +28,7 @@ open class ControllerTestBase {
         doReturn(null).whenever(context).id()
     }
 
-    protected fun givenApiKey(scope: String? = null): ApiKey {
+    protected fun login(scope: String? = null): ApiKey {
         val apiKeyId = UUID.randomUUID().toString()
         doReturn(apiKeyId).whenever(context).id()
 

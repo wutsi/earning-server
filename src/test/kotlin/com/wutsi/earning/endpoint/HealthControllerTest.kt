@@ -6,7 +6,7 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.web.client.RestTemplate
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HealthControllerTest {
+public class HealthControllerTest : ControllerTestBase() {
     @LocalServerPort
     public val port: Int = 0
 

@@ -3,7 +3,7 @@ package com.wutsi.earning.config
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wutsi.partner.PartnerApi
 import com.wutsi.partner.PartnerApiBuilder
-import com.wutsi.security.apikey.ApiKeyRequestInterceptor
+import com.wutsi.platform.security.apikey.ApiKeyRequestInterceptor
 import com.wutsi.tracing.TracingRequestInterceptor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean

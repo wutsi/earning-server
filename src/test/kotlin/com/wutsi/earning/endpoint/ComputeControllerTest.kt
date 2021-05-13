@@ -24,7 +24,7 @@ public class ComputeControllerTest : ControllerTestBase() {
 
     @Test
     public fun `invoke`() {
-        givenApiKey("earning.admin")
+        login("earning-manage")
 
         val url = "http://localhost:$port/v1/earnings/compute?year=2020&month=1"
         val response = exchange(url, HttpMethod.GET, SearchEarningResponse::class.java)
@@ -36,7 +36,7 @@ public class ComputeControllerTest : ControllerTestBase() {
 
     @Test
     fun `invoke with no permission`() {
-        givenApiKey()
+        login()
 
         try {
             val url = "http://localhost:$port/v1/earnings/compute?year=2020&month=1"
@@ -51,7 +51,7 @@ public class ComputeControllerTest : ControllerTestBase() {
 
     @Test
     fun `invoke with bad permission`() {
-        givenApiKey("earning")
+        login("earning")
 
         try {
             val url = "http://localhost:$port/v1/earnings/compute?year=2020&month=1"

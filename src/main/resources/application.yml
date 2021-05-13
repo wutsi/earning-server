@@ -60,13 +60,6 @@ spring:
       max-lifetime: 1000 # maximum lifetime in milliseconds of a connection in the pool after it is closed.
 
 
-rabbitmq:
-  enabled: false
-  url: ${CLOUDAMQP_URL}
-  thread-pool-size: 8
-  max-retries: 10
-  queue-ttl-seconds: 86400       # 24 heures
-  replay-cron: "0 */15 * * * *"  # Replay DLQ every 15 mins
 
 logging:
   level:
@@ -76,10 +69,16 @@ logging:
     file: "%d type=%level logger=%class{20} thread=%thread request_id=%X{request_id} client_id=%X{client_id} device_id=%X{device_id} :%m%n"
 
 wutsi:
+  client-id: earning
   cron:
     monthly-compute: "0 10 3 3 * *"  # Every 3rd or the month at 3:10 AM
-
-security:
-  api-key:
-    id: "0000000"
-    header: "Authorization"
+  rabbitmq:
+    enabled: false
+    url: ${CLOUDAMQP_URL}
+    thread-pool-size: 8
+    max-retries: 10
+    queue-ttl-seconds: 86400       # 24 heures
+    replay-cron: "0 */15 * * * *"  # Replay DLQ every 15 mins
+  security:
+    api-key:
+      id: "0000000"

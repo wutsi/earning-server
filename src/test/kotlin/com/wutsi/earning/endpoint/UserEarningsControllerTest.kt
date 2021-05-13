@@ -1,7 +1,6 @@
 package com.wutsi.earning.endpoint
 
 import com.wutsi.earning.dto.SearchEarningResponse
-import com.wutsi.earning.dto.SecurityScope
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
@@ -22,7 +21,7 @@ public class UserEarningsControllerTest : ControllerTestBase() {
 
     @Test
     fun `invoke`() {
-        givenApiKey(SecurityScope.EARNING.scope)
+        login("earning-read")
 
         val url = "http://localhost:$port/v1/earnings/users/1?year=2020"
         val response = exchange(url, HttpMethod.GET, SearchEarningResponse::class.java)
@@ -52,7 +51,7 @@ public class UserEarningsControllerTest : ControllerTestBase() {
 
     @Test
     fun `invoke with no permission`() {
-        givenApiKey()
+        login("xxx")
 
         try {
             val url = "http://localhost:$port/v1/earnings/users/1?year=2020"

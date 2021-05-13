@@ -35,7 +35,7 @@ paths:
                 $ref: '#/components/schemas/SearchEarningResponse'
       security:
         - api_key:
-            - earning
+            - earning-read
       tags:
         - Earnings
   /v1/earnings/compute:
@@ -59,7 +59,7 @@ paths:
           description: Success
       security:
         - api_key:
-            - earning.admin
+            - earning-manage
       tags:
         - Earnings
   /v1/earnings/replay:
@@ -83,7 +83,7 @@ paths:
           description: Success
       security:
         - api_key:
-            - earning.admin
+            - earning-manage
       tags:
         - Earnings
 components:

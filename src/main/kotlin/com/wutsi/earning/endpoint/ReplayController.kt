@@ -7,15 +7,16 @@ import org.springframework.web.bind.`annotation`.GetMapping
 import org.springframework.web.bind.`annotation`.RequestParam
 import org.springframework.web.bind.`annotation`.RestController
 import java.time.LocalDate
+import javax.validation.constraints.NotNull
 
 @RestController
 public class ReplayController(
     private val `delegate`: ReplayDelegate
 ) {
     @GetMapping("/v1/earnings/replay")
-    @PreAuthorize(value = "hasAuthority('earning.admin')")
+    @PreAuthorize(value = "hasAuthority('earning-manage')")
     public fun invoke(
-        @RequestParam(name = "start-date", required = false)
+        @RequestParam(name = "start-date", required = true) @NotNull
         @DateTimeFormat(pattern = "yyyy-MM-dd") startDate: LocalDate,
         @RequestParam(
             name = "end-date",

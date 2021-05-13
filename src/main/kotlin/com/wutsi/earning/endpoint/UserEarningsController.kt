@@ -7,6 +7,7 @@ import org.springframework.web.bind.`annotation`.GetMapping
 import org.springframework.web.bind.`annotation`.PathVariable
 import org.springframework.web.bind.`annotation`.RequestParam
 import org.springframework.web.bind.`annotation`.RestController
+import javax.validation.constraints.NotNull
 import kotlin.Int
 import kotlin.Long
 
@@ -15,12 +16,12 @@ public class UserEarningsController(
     private val `delegate`: UserEarningsDelegate
 ) {
     @GetMapping("/v1/earnings/users/{user-id}")
-    @PreAuthorize(value = "hasAuthority('earning')")
+    @PreAuthorize(value = "hasAuthority('earning-read')")
     public fun invoke(
-        @PathVariable(name = "user-id") userId: Long,
+        @PathVariable(name = "user-id") @NotNull userId: Long,
         @RequestParam(
             name = "year",
-            required = false
-        ) year: Int
+            required = true
+        ) @NotNull year: Int
     ): SearchEarningResponse = delegate.invoke(userId, year)
 }
