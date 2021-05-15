@@ -38,7 +38,7 @@
 
     <wutsi-contract-sdk.version>1.1.0</wutsi-contract-sdk.version>
     <wutsi-partner-sdk.version>1.0.0</wutsi-partner-sdk.version>
-    <wutsi-platform.version>1.1.0</wutsi-platform.version>
+    <wutsi-platform.version>1.1.1</wutsi-platform.version>
     <wutsi-stats-sdk.version>1.1.0</wutsi-stats-sdk.version>
     <wutsi-user-sdk.version>1.7.0</wutsi-user-sdk.version>
   </properties>

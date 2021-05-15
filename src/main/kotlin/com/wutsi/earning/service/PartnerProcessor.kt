@@ -1,13 +1,13 @@
 package com.wutsi.earning.service
 
-import com.wutsi.earning.SiteAttribute
-import com.wutsi.earning.SiteAttribute.WPP_MONTHLY_AMOUNT
-import com.wutsi.earning.SiteAttribute.WPP_THRESHOLD
 import com.wutsi.earning.dao.EarningRepository
 import com.wutsi.earning.entity.EarningEntity
 import com.wutsi.partner.PartnerApi
 import com.wutsi.partner.dto.Partner
 import com.wutsi.site.SiteApi
+import com.wutsi.site.SiteAttribute
+import com.wutsi.site.SiteAttribute.WPP_MONTHLY_AMOUNT
+import com.wutsi.site.SiteAttribute.WPP_THRESHOLD
 import com.wutsi.site.dto.Site
 import com.wutsi.stats.StatsApi
 import com.wutsi.stats.dto.KpiType

@@ -3,12 +3,12 @@ package com.wutsi.earning.service
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
-import com.wutsi.earning.SiteAttribute
 import com.wutsi.earning.dao.EarningRepository
 import com.wutsi.partner.PartnerApi
 import com.wutsi.partner.dto.Partner
 import com.wutsi.partner.dto.SearchPartnerResponse
 import com.wutsi.site.SiteApi
+import com.wutsi.site.SiteAttribute
 import com.wutsi.site.dto.Attribute
 import com.wutsi.site.dto.GetSiteResponse
 import com.wutsi.site.dto.Site
