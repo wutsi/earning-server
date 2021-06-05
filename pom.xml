@@ -34,7 +34,7 @@
     <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
     <hikari-cp.version>4.0.3</hikari-cp.version>
     <postgresql.version>42.2.20</postgresql.version>
-    <flyway.version>7.9.1</flyway.version>
+    <flyway.version>7.9.2</flyway.version>
 
     <wutsi-contract-sdk.version>1.1.0</wutsi-contract-sdk.version>
     <wutsi-partner-sdk.version>1.0.0</wutsi-partner-sdk.version>
